@@ -1,11 +1,19 @@
 package repos
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import models.BraveApp
 import models.DesktopFileData
 import java.io.File
 import java.nio.charset.Charset
 
-class FilesRepo {
+// @todo this is poorly organized
+// - files should be in global state
+// - all functions here should be pure
+object FilesRepo {
+    
+    var files by mutableStateOf(readFiles())
     
     private fun filterBraveFiles(file: File) : Boolean =
         file.name.startsWith("brave-") &&
@@ -60,7 +68,7 @@ class FilesRepo {
         return BraveApp(file.name, file, details)
     }
     
-    fun getFiles() : List<BraveApp> {
+    fun readFiles() : List<BraveApp> {
         
         val homeDir = File(System.getProperty("user.home"))
         val gnomeAppsDir = homeDir.resolve(".gnome/apps")
@@ -78,6 +86,14 @@ class FilesRepo {
             .forEach { braveFiles.add(getAppDetails(it)) }
         
         return braveFiles.toList()
+        
+    }
+    
+    fun deleteFile(file: File) {
+        
+        file.delete()
+        
+        files = readFiles()
         
     }
     

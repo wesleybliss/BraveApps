@@ -16,4 +16,12 @@ object GlobalState {
      */
     var selectedApp by mutableStateOf<BraveApp?>(null)
     
+    val hasSelectedApp get() =
+        selectedApp?.file != null
+    
+    val selectedAppName get() =
+        selectedApp?.nameOrUnknown ?: "Unknown"
+    
+    var dialogConfirmDeleteAppOpen by mutableStateOf(false)
+    
 }

@@ -32,10 +32,6 @@ fun FileActionsToolbar() {
                 Text(GlobalState.selectedApp?.nameOrUnknown ?: "Unknown")
             }
             
-            /*Spacer(
-                modifier = Modifier.fillMaxWidth(),
-            )*/
-            
             Column(
                 modifier = Modifier.width(intrinsicSize = IntrinsicSize.Min)
             ) {

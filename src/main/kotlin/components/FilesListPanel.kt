@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,9 +16,7 @@ import repos.FilesRepo
 @Preview
 fun FilesListPanel() {
     
-    // @todo this can be static, no need to hold a ref in memory
-    val filesRepo = FilesRepo()
-    val filesState by remember { mutableStateOf(filesRepo.getFiles()) }
+    val filesState = remember { FilesRepo.files }
     
     Column(
         modifier = Modifier
