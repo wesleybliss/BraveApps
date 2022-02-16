@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
@@ -19,27 +21,45 @@ fun App() {
     
     MaterialTheme {
     
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Brave Apps") },
+                    actions = {
+                        // RowScope here, so these icons will be placed horizontally
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+                        }
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+                        }
+                    },
+                    
+                )
+            }
         ) {
-            
-            TopBar()
-        
-            Row(
+    
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {
-                
-                FilesListPanel()
-                FileDetailsPanel()
-            
-            }
-            
-        }
         
+                TopBar()
+        
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                ) {
+            
+                    FilesListPanel()
+                    FileDetailsPanel()
+            
+                }
+        
+            }
+        }
     }
     
 }

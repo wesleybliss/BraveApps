@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.compose") version "1.0.0"
 }
 
-group = "me.wes"
+group = "com.gammagamma"
 version = "1.0"
 
 repositories {
@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("br.com.devsrsouza.compose.icons.jetbrains:font-awesome:1.0.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -28,7 +29,13 @@ compose.desktop {
     application {
         mainClass = "MainKt"
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(
+                TargetFormat.Dmg,
+                TargetFormat.Msi,
+                TargetFormat.Deb,
+                TargetFormat.Rpm,
+                TargetFormat.AppImage
+            )
             packageName = "BraveApps"
             packageVersion = "1.0.0"
         }
