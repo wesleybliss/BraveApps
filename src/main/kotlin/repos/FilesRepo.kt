@@ -7,10 +7,10 @@ import java.awt.Desktop
 import java.io.File
 import java.nio.charset.Charset
 
-// @todo this is poorly organized
-// - files should be in global state
-// - all functions here should be pure
 object FilesRepo {
+    
+    // Good for testing with files in /tmp
+    private const val debugEnableTempDirectory = false
     
     private fun filterBraveFiles(file: File) : Boolean =
         file.name.startsWith("brave-") &&
@@ -96,15 +96,16 @@ object FilesRepo {
             .filter(::filterBraveFiles)
             .forEach { braveFiles.add(getAppDetails(it)) }
         
-        File("/tmp").walk().forEach {
-            braveFiles.add(
-                BraveApp(
-                    name = it.name,
-                    file = it,
-                    data = DesktopFileData()
+        if (debugEnableTempDirectory)
+            File("/tmp").walk().forEach {
+                braveFiles.add(
+                    BraveApp(
+                        name = it.name,
+                        file = it,
+                        data = DesktopFileData()
+                    )
                 )
-            )
-        }
+            }
     
         GlobalState.files = braveFiles.toList()
         
