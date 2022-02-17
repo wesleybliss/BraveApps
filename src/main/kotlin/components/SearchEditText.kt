@@ -68,7 +68,8 @@ fun SearchEditText() {
                 IconButton(onClick = { onClearClick() }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
-                        contentDescription = ""
+                        contentDescription = "",
+                        tint = Color.White, 
                     )
                 }
                 

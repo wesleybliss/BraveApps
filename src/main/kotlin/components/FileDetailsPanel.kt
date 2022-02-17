@@ -40,7 +40,7 @@ fun FileDetailsPanel() {
                 Row(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Table(GlobalState.selectedApp!!.data.toKeyValuePairs())
+                    Table(GlobalState.selectedApp!!.toKeyValuePairs())
                 }
                 
             }
