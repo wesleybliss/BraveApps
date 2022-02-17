@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
@@ -15,10 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import components.Dialogs
-import components.FileDetailsPanel
-import components.FilesListPanel
-import components.SearchEditText
+import components.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import repos.FilesRepo
@@ -68,7 +67,28 @@ fun App() {
                             }) {
                                 Icon(Icons.Filled.Delete, contentDescription = "Delete")
                             }
-                        IconButton(onClick = { FilesRepo.readFiles() }) {
+                        
+                        IconButton(onClick = {
+                            GlobalState.multiselectEnabled = !GlobalState.multiselectEnabled
+                            if (!GlobalState.multiselectEnabled) {
+                                GlobalState.selectedApp = null
+                                GlobalState.checkedApps = emptyList()
+                            }
+                        }) {
+                            val icon =
+                                if (GlobalState.multiselectEnabled)
+                                    Icons.Filled.CheckCircle
+                                else
+                                    Icons.Filled.Check
+                            Icon(
+                                icon,
+                                contentDescription = "Reload Files",
+                                tint = Color.White,
+                            )
+                        }
+                        IconButton(onClick = {
+                            FilesRepo.readFiles()
+                        }) {
                             Icon(
                                 Icons.Filled.Refresh,
                                 contentDescription = "Reload Files",
@@ -94,7 +114,11 @@ fun App() {
                 ) {
             
                     FilesListPanel()
-                    FileDetailsPanel()
+                    
+                    if (GlobalState.multiselectEnabled)
+                        CheckedFilesPanel()
+                    else
+                        FileDetailsPanel()
             
                 }
         

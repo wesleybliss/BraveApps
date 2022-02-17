@@ -64,4 +64,26 @@ fun Dialogs() {
             cancelText = null,
         )
     
+    if (GlobalState.dialogConfirmDeleteAllCheckedOpen)
+        ConfirmationDialog(
+            title = "Delete All Selected Apps",
+            message = "Are you sure you want to delete all ${GlobalState.checkedApps.size} selected apps?",
+            closeDialog = {
+                GlobalState.swapDialogs {
+                    GlobalState.dialogConfirmDeleteAllCheckedOpen = false
+                }
+            },
+            onConfirm = {
+                GlobalState.checkedApps.forEach {
+                    FilesRepo.deleteFile(it.file)
+                }
+                showSnackbar("Deleted ${GlobalState.checkedApps.size} apps")
+                GlobalState.selectedApp = null
+                GlobalState.filterQuery = ""
+                GlobalState.checkedApps = emptyList()
+                FilesRepo.readFiles()
+            },
+            cancelText = null,
+        )
+        
 }

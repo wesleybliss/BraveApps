@@ -1,6 +1,5 @@
 package models
 
-import GlobalState
 import java.io.File
 
 data class BraveApp(
@@ -10,11 +9,11 @@ data class BraveApp(
 ) {
     
     val nameOrUnknown get () =
-        if (!GlobalState.selectedApp?.data?.Name.isNullOrBlank())
-            GlobalState.selectedApp!!.data.Name
+        if (!data.Name.isNullOrBlank())
+            data.Name
         else
-            if (GlobalState.selectedApp?.name.isNullOrBlank()) "Unknown"
-            else GlobalState.selectedApp!!.name
+            if (name.isBlank()) "Unknown"
+            else name
     
     fun toKeyValuePairs() : List<Pair<String, String>> =
         mutableListOf(

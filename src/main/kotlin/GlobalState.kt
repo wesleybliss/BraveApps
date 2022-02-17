@@ -35,18 +35,23 @@ object GlobalState {
     val selectedAppName get() =
         selectedApp?.nameOrUnknown ?: "Unknown"
     
+    var multiselectEnabled by mutableStateOf(false)
+    var checkedApps by mutableStateOf(emptyList<BraveApp>())
+    
     // we allow only one snackbar to be in the queue here, hence conflated
     val snackbarChannel = Channel<SnackbarData>(Channel.CONFLATED)
     
     var dialogConfirmDeleteAppOpen by mutableStateOf(false)
     var dialogConfirmDeleteAppPermanentOpen by mutableStateOf(false)
     var dialogFailedToDeleteAppOpen by mutableStateOf(false)
+    var dialogConfirmDeleteAllCheckedOpen by mutableStateOf(false)
     
     fun swapDialogs(afterSwap: () -> Unit) {
         dialogConfirmDeleteAppOpen = false
         dialogConfirmDeleteAppPermanentOpen = false
         dialogFailedToDeleteAppOpen = false
         dialogFailedToDeleteAppOpen = false
+        dialogConfirmDeleteAllCheckedOpen = false
         afterSwap()
     }
     
