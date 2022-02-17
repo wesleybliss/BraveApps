@@ -2,6 +2,8 @@
 
 > Simple app to manage web apps created by Brave browser
 
+![Brave Apps Screenshot](assets/screenshot.png?raw=true)
+
 ## Setup
 
 1. Clone the repository
